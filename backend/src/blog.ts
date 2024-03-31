@@ -65,26 +65,6 @@ blogRouter.put("/", async (c) => {
   });
   return c.json({ message: "Blog Updated" });
 });
-
-blogRouter.get("/", async (c) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
-
-  try {
-    const body = await c.req.json();
-    const blog = await prisma.blog.findFirst({
-      where: {
-        id: body.id,
-      },
-    });
-    return c.json({ message: "Blog", blog });
-  } catch (e) {
-    c.status(500);
-    return c.json({ message: "Error fetching blog" });
-  }
-});
-
 // add pagination to the blog route
 blogRouter.get("/bulk", async (c) => {
   const prisma = new PrismaClient({
@@ -99,3 +79,23 @@ blogRouter.get("/bulk", async (c) => {
     return c.json({ message: "Error fetching blogs" });
   }
 });
+
+blogRouter.get("/:id", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  try {
+    const id = c.req.param("id");
+    const blog = await prisma.blog.findFirst({
+      where: {
+        id: Number(id),
+      },
+    });
+    return c.json({ message: "Blog", blog });
+  } catch (e) {
+    c.status(500);
+    return c.json({ message: "Error fetching blog" });
+  }
+});
+
