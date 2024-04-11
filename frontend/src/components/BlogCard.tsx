@@ -14,21 +14,24 @@ export const BlogCard = ({
   publishedDate,
 }: BlogCardProps) => {
   return (
-    <div className="border border-slate-200 pb-4">
+    <div className="p-4 border-b border-slate-200">
       <div className="flex">
-        <div className="flex justify-center flex-col">
-          <Avatar name={authorName} />
+        <Avatar name={authorName} />
+
+        <div className="flex justify-center flex-col font-extralight pl-2 text-sm">
+          {authorName}
         </div>
-        <div className="font-extralight pl-2">{authorName}</div>
-        <div className="flex justify-center flex-col pl-2">
-          {" "}
-          <Circle />{" "}
+        <div className="flex justify-center flex-col pl-2 ">
+          
+          <Circle />
         </div>
-        <div className="pl-2 font-thin text-slate-400">{publishedDate}</div>
+        <div className="flex justify-center flex-col pl-2 font-thin text-slate-500 text-sm">
+          {publishedDate}
+        </div>
       </div>
-      <div className="text-xl font-semibold">{title}</div>
+      <div className="text-xl font-semibold pt-2">{title}</div>
       <div className="text-md font-thin">{content.slice(0, 100)}...</div>
-      <div className="text-slate-500 font-thin text-sm">{`${Math.ceil(
+      <div className="text-slate-500 font-thin text-sm pt-4">{`${Math.ceil(
         content.length / 100
       )} min read`}</div>
       {/* <div className="bg-slate-200 h-1  "></div> */}
