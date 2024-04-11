@@ -76,6 +76,7 @@ blogRouter.put("/", async (c) => {
   });
   return c.json({ message: "Blog Updated" });
 });
+
 // add pagination to the blog route
 blogRouter.get("/bulk", async (c) => {
   const prisma = new PrismaClient({
@@ -83,7 +84,23 @@ blogRouter.get("/bulk", async (c) => {
   }).$extends(withAccelerate());
 
   try {
-    const blogs = await prisma.blog.findMany();
+    const blogs = await prisma.blog.findMany({
+      take: 10,
+      orderBy: {
+        id: "asc",
+      },
+      select:{
+        content:true,
+        title:true,
+        id:true,
+        //publishDate:true,
+        author: {
+          select: {
+            name: true,
+          },
+        }
+      }
+    });
     return c.json({ message: "Blogs", blogs });
   } catch (e) {
     c.status(500);
@@ -102,6 +119,17 @@ blogRouter.get("/:id", async (c) => {
       where: {
         id: Number(id),
       },
+      select:{
+        content:true,
+        title:true,
+        id:true,
+        //publishDate:true,
+        author:{
+          select:{
+            name:true
+          }
+        }
+      }
     });
     return c.json({ message: "Blog", blog });
   } catch (e) {
