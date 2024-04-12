@@ -1,5 +1,5 @@
 import  Appbar  from "../components/AppBar";
-import CompleteBlog from "../components/CompleteBlog";
+import CompleteBlog from "../components/CompleteBlog.tsx";
 import  Spinner  from "../components/Spinner";
 import { useBlog } from "../hooks";
 import { useParams } from "react-router-dom";
