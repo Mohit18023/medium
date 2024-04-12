@@ -133,4 +133,3 @@ dist
 .env
 wrangler.toml
 node_modules
-config.ts
