@@ -1,19 +1,32 @@
-// atom familes and selector families are used in this file
-export const Blog = () => {
-  const {loading,blog} = useBlog();
+import  Appbar  from "../components/AppBar";
+import CompleteBlog from "../components/CompleteBlog";
+import  Spinner  from "../components/Spinner";
+import { useBlog } from "../hooks";
+import { useParams } from "react-router-dom";
 
-  if(loading){
+// atomFamilies/selectorFamilies
+export const Blog = () => {
+  const { id } = useParams();
+  const { loading, blog } = useBlog({
+    id: id || "",
+  });
+
+  if (loading || !blog) {
     return (
       <div>
-        {/* add skeletons here */}
-        Loading...
-      </div>
-    )
-  }
+        <Appbar />
 
+        <div className="h-screen flex flex-col justify-center">
+          <div className="flex justify-center">
+            <Spinner />
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
-      Blog
+      <CompleteBlog blog={blog} />
     </div>
-  )
-}
+  );
+};
