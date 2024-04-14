@@ -24,7 +24,7 @@ const Auth = ({ type }: { type: "signup" | "signin" }) => {
         // store the token in local storage
         localStorage.setItem("token", jwt);
         // redirect the user to the home page
-        navigate("blogs")
+        navigate("/blogs");
     } catch (error) {
         // alert the user that the request is failed
         console.log(error)
